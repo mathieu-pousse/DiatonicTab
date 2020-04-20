@@ -165,7 +165,7 @@ FileDialog {
       selectFolder: false
       selectMultiple: false
         onAccepted: {
-                console.log("OK : " + fileUrl)
+                debug("OK : " + fileUrl)
                 if (fileUrl.toString().indexOf("file:///") != -1)
                   fichierClavier.source = fileUrl.toString().substring(fileUrl.toString().charAt(9) === ':' ? 8 : 7)
                 else
@@ -193,7 +193,7 @@ FileDialog {
         selectFolder: false
         selectMultiple: false
           onAccepted: {
-                  console.log("OK : " + fileUrl)
+                  debug("OK : " + fileUrl)
                   if (fileUrl.toString().indexOf("file:///") != -1)
                     fichierClavier.source = fileUrl.toString().substring(fileUrl.toString().charAt(9) === ':' ? 8 : 7)
                   else
@@ -675,6 +675,18 @@ RowLayout {
 // }
   } // GridLayout
 
+
+function debug(message) {
+  if (true) {
+    console.log(message) 
+  }
+}
+
+function addElement(cursor, element) {
+  debug("Ajout de l'élément: " + element.name + "(" + element.text + ")")
+  cursor.add(element)
+}
+
 // -----------------------------------------------------------------------------
 // Fonction de mémorisation des Parametres
 // Cette fonction replace les éléments de la boite de dialogue dans les Parametres
@@ -969,12 +981,12 @@ function memoriseParametres(){
               	    textTire.offsetY   = textPousse.offsetY  = parametres.offsetY.DES
 	                  textTire.autoplace = textPousse.autoplace = true
                     // Ajoute les numéros à la tablature en placement automatique
-                    if (textAlt.text !=  "") cursor.add(textAlt)
+                    if (textAlt.text !=  "") addElement(cursor, textAlt)
                     if (textTire.text !=  "") {
                       textTire.text = "<u>" + textTire.text + "</u>"
-                      cursor.add(textTire)
+                      addElement(cursor, textTire)
                     }
-                    if (textPousse.text != "") cursor.add(textPousse)
+                    if (textPousse.text != "") addElement(cursor, textPousse)
             break
         }
         // ------------------------------------------------------------------------
@@ -983,12 +995,12 @@ function memoriseParametres(){
         // Pour finir, on affiche le numéro de la touche dans la partition
         // pour les tablatures Corgeron et CADB, ,es DES ont déjà été ajoutées
         if (parametres.typeTablature != "DES"){
-          if (textAlt.text !=  "") cursor.add(textAlt)
+          if (textAlt.text !=  "") addElement(cursor, textAlt)
           if (textTire.text !=  "") {
               // textTire.text = "<u>" + textTire.text + "</u>"
-              cursor.add(textTire)
+              addElement(cursor, textTire)
           }
-          if (textPousse.text != "") cursor.add(textPousse)
+          if (textPousse.text != "") addElement(cursor, textPousse)
         }
         // ------------------------------------------------------------------------
 }
